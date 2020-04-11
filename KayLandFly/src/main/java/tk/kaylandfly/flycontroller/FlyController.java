@@ -25,7 +25,9 @@ public class FlyController {
 	 * @param uuid
 	 */
 	public void removePlayer(UUID uuid) {
-		players.remove(uuid);
+		while (players.contains(uuid)) {
+			players.remove(uuid);
+		}
 	}
 	
 	/**

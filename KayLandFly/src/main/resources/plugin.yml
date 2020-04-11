@@ -13,6 +13,12 @@ commands:
     - fly
     description: Enable/Disable fly mode!
     permission: kaylandfly.use
+  kaylandflyflybuy:
+    aliases:
+    - klfflybuy
+    - flybuy
+    description: Can buy seconds
+    permission: kaylandfly.flybuy
 permissions:
   kaylandfly.admin:
     description: Can use kaylandfly command
@@ -20,5 +26,7 @@ permissions:
     description: Can use fly command
   kaylandfly.use.other:
     description: Can active fly other player
+  kaylandfly.use.unlimited:
+    description: Can use fly mode unlimited
     
   

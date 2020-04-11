@@ -34,11 +34,13 @@ public class onDisconnectEvent implements Listener{
 	}
 	
 	private void savePlayerData(UUID uuid) {
-		FileConfiguration players = plugin.getFiles().getPlayers();
-		PlayerData playerData = plugin.getPlayersData().getPlayerData(uuid);
-		players.set(uuid + "seconds", playerData.getSeconds());
-		players.set(uuid + ".quitWithFly", playerData.hasQuitWithFly());
-		plugin.getFiles().savePlayers();
+		if (plugin.getPlayersData().containPlayerData(uuid)) {
+			FileConfiguration players = plugin.getFiles().getPlayers();
+			PlayerData playerData = plugin.getPlayersData().getPlayerData(uuid);
+			players.set(uuid + ".seconds", playerData.getSeconds());
+			players.set(uuid + ".quitWithFly", playerData.hasQuitWithFly());
+			plugin.getFiles().savePlayers();
+		}
 	}
 	
 }

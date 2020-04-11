@@ -28,7 +28,7 @@ public class CMD_FlyBuy implements CommandExecutor{
 				if (args.length > 0) {
 					try {
 						double secondCost = settings.getDouble("secondCost");
-						int amount = Integer.valueOf(args[1]);
+						int amount = Integer.valueOf(args[0]);
 						if (plugin.getEconomyController().getEconomy().getBalance(player) >= secondCost*amount) {
 							plugin.getEconomyController().getEconomy().withdrawPlayer(player, secondCost*amount);
 							PlayerData playerData = plugin.getPlayersData().getPlayerData(player.getUniqueId());

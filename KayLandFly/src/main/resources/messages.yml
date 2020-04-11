@@ -27,3 +27,14 @@ command:
      insufficientBalance: "&cNo tines dinero suficiente para comprar esa cantidad de segundos."
      amountAddedOther: "&6Se agregó una cantidad de &e%amount% &6al usuario &e%player%&6."
      amountAdded: "&6Se agregaron &e%amount% segundos &6a tus datos de vuelo."
+   flycoupon:
+     playerEmpty: "&cEl nombre está vacío."
+     amountEmpty: "&cLa cantidad esta vacía."
+     playerNoFound: "&cEl jugador &e%player% &cno existe o está desconectado."
+     playerHasNoSpace: "&cEl jugador &e%player% &cno tiene espacio en su inventario."
+     invalidAmount: "&cCantidad inválida. &7Recuerda que debe ser un número entero."
+     couponAdded: "&6Fue entregado un cupón de &e%time% al jugador &e%player%"
+     couponRecived: "&6Te entregaron un cupón de &e%time%"
+     
+     handEmpty: "&cNo tienes ningun objeto en tu mano."
+     incorrentItem: "&cNo tienes ningun cupon en tu mano."
