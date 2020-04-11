@@ -1,1 +1,9 @@
 secondCost: 10.2
+coupon:
+  name: "&6Fly Coupon"
+  lore:
+  - "This coupon you can"
+  - "reedem to gen this time"
+  - "%time%"
+  - "in your fly data."
+  secondsLine: 3

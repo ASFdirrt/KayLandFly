@@ -2,7 +2,7 @@ prefix: "&7[&9KayLand&bFly&7] "
 noPermission: "&cNo tienes permisos para usar esto."
 command:
    kaylandfly:
-      noArguments: "&cNo se encontró ningun argumento."
+      noArguments: "&cNo se encontró ningun argumento. &7Usa /kaylandfly help."
       invalidArgument: "&cEl argumento es inválido. &7Usa /kaylandfly help."
       reloadComplete: "&6¡Complemento recargado!"
       help:
@@ -34,9 +34,25 @@ command:
      amountEmpty: "&cLa cantidad esta vacía."
      playerNoFound: "&cEl jugador &e%player% &cno existe o está desconectado."
      playerHasNoSpace: "&cEl jugador &e%player% &cno tiene espacio en su inventario."
-     invalidAmount: "&cCantidad inválida. &7Recuerda que debe ser un número entero."
+     invalidAmount: "&cCantidad inválida. &7Recuerda que debe ser un número entero sin letras ni espacios."
      couponAdded: "&6Fue entregado un cupón de &e%time% al jugador &e%player%"
      couponRecived: "&6Te entregaron un cupón de &e%time%"
-     
+     noArguments: "&cNo se encontró ningun argumento. &7Usa /flycoupon help."
+     invalidArgument: "&cEl argumento es inválido. &7Usa /flycoupon help."
+     help:
+     - ""
+     - "/flycoipon reedem"
+     - "/flycoupon create [Seconds]"
+     - ""
+     create:
+       noSeconds: "&cNo se encontro los segundos. &7Usa /flycoupon help."
+       invalidSeconds: "&cEl tiempo es invalido. &7Recuerda que debe ser un numero entero sin letras ni espacios."
+       noHaveSpace: "&cNo tienes espacio suficiente en tu inventario. &7Recuerda que debes tener al menos un espacio vacio."
+       noHaveThatSeconds: "&cNo tienes esa cantidad de segundos. &7Recuerda que debes tener esa cantidad en tus datos de vuelo."
+       couponCreated: "&6Cupon creado."
+       
+       
+       
+       
      handEmpty: "&cNo tienes ningun objeto en tu mano."
      incorrentItem: "&cNo tienes ningun cupon en tu mano."
