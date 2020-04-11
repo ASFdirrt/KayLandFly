@@ -18,6 +18,8 @@ command:
       enableOther: "&6El modo vuelo fue activado para el jugador."
       disableOwn: "&6Modo vuelo &cdesactivado&6."
       disableOther: "&6El modo vuelo fue desactivado para el jugador."
+      reactiveFail: "&cNo tienes segundos disponibles para reanudar el vuelo."
+      reactiveComplete: "&6Modo vuelo reactivado."
    flybuy:
      playerEmpty: "&cEl nombre está vacío."
      amountEmpty: "&cLa cantidad esta vacía."

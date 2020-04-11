@@ -3,6 +3,7 @@ package tk.kaylandfly;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,7 +15,9 @@ import tk.kaylandfly.events.onDisconnectEvent;
 import tk.kaylandfly.events.onFlyingEvents;
 import tk.kaylandfly.files.Files;
 import tk.kaylandfly.flycontroller.FlyController;
+import tk.kaylandfly.playerdata.PlayerData;
 import tk.kaylandfly.playerdata.PlayersData;
+import tk.kaylandfly.tasks.ConsumeSeconds;
 import tk.kaylandfly.util.vault.EconomyController;
 
 public class KayLandFlyPlugin extends JavaPlugin {
@@ -26,12 +29,43 @@ public class KayLandFlyPlugin extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		playersData = new PlayersData();
+		playersData = new PlayersData(this);
 		flyController = new FlyController();
 		economyController = new EconomyController(this);
 		files = new Files(this);
 		registerCommands();
 		registerEvents();
+		for(Player player:getServer().getOnlinePlayers()) {
+			playersData.loadPlayerData(player.getUniqueId());
+			PlayerData playerData = playersData.getPlayerData(player.getUniqueId());
+			FileConfiguration messages = files.getMessages();
+			String prefix = messages.getString("prefix");
+			if (playerData.getSeconds() > 0) {
+				if (playerData.hasQuitWithFly()) {	
+					player.setAllowFlight(true);
+					player.setFlying(true);
+					if (!player.hasPermission("kaylandfly.use.unlimited")) {
+						ConsumeSeconds consumeSeconds = new ConsumeSeconds(this, player);
+						consumeSeconds.startScheduler();
+					}
+					String reaciveComplete = messages.getString("command.fly.reaciveComplete");
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', reaciveComplete));
+				}
+			} else {
+				String reactiveFail = messages.getString("command.fly.reactiveFail");
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix+reactiveFail));
+			}
+		}
+	}
+	
+	@Override
+	public void onDisable() {
+		for(Player player:getServer().getOnlinePlayers()) {
+			if(flyController.containPlayer(player.getUniqueId())) {
+				playersData.getPlayerData(player.getUniqueId()).setQuitWithFly(true);
+			}
+			playersData.savePlayerData(player.getUniqueId());
+		}
 	}
 
 	private void registerEvents() {
@@ -73,6 +107,9 @@ public class KayLandFlyPlugin extends JavaPlugin {
 		// FlyBuy
 		PluginCommand flybuy = getCommand("kaylandflyflybuy");
 		flybuy.setPermissionMessage(ChatColor.translateAlternateColorCodes('&', prefix + noPermission));
+		for(Player player:getServer().getOnlinePlayers()) {
+			playersData.savePlayerData(player.getUniqueId());
+		}
 	}
 	/**
 	 * Obtener PlayersData

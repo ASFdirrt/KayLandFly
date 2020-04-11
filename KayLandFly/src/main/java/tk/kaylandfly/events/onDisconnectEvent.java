@@ -2,7 +2,6 @@ package tk.kaylandfly.events;
 
 import java.util.UUID;
 
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -20,8 +19,10 @@ public class onDisconnectEvent implements Listener{
 	
 	@EventHandler
 	public void onDisconnect(PlayerQuitEvent event) {
-		setQuitWithFly(event.getPlayer().getUniqueId());
-		savePlayerData(event.getPlayer().getUniqueId());
+		UUID uuid = event.getPlayer().getUniqueId();
+		setQuitWithFly(uuid);
+		plugin.getPlayersData().savePlayerData(uuid);
+		plugin.getPlayersData().removePlayerData(uuid);
 	}
 	
 	private void setQuitWithFly(UUID uuid) {
@@ -30,16 +31,6 @@ public class onDisconnectEvent implements Listener{
 			playerData.setQuitWithFly(true);
 		} else {
 			playerData.setQuitWithFly(false);
-		}
-	}
-	
-	private void savePlayerData(UUID uuid) {
-		if (plugin.getPlayersData().containPlayerData(uuid)) {
-			FileConfiguration players = plugin.getFiles().getPlayers();
-			PlayerData playerData = plugin.getPlayersData().getPlayerData(uuid);
-			players.set(uuid + ".seconds", playerData.getSeconds());
-			players.set(uuid + ".quitWithFly", playerData.hasQuitWithFly());
-			plugin.getFiles().savePlayers();
 		}
 	}
 	

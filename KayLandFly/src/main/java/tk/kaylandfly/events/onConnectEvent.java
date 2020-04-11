@@ -2,7 +2,6 @@ package tk.kaylandfly.events;
 
 import java.util.UUID;
 
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,7 +24,7 @@ public class onConnectEvent implements Listener {
 	public void onConnect(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		UUID uuid = player.getUniqueId();
-		loadPlayerData(uuid);
+		plugin.getPlayersData().loadPlayerData(uuid);
 		enableFlyOnJoin(player);
 	}
 	
@@ -39,19 +38,6 @@ public class onConnectEvent implements Listener {
 				ConsumeSeconds consumeSeconds = new ConsumeSeconds(plugin, player);
 				consumeSeconds.startScheduler();
 			}
-		}
-	}
-	
-	private void loadPlayerData(UUID uuid) {
-		FileConfiguration players = plugin.getFiles().getPlayers();
-		if (players.contains(uuid.toString())) {
-			int seconds = players.getInt(uuid + ".seconds");
-			boolean quitWithFly = players.getBoolean(uuid + ".quitWithFly");
-			PlayerData playerData = new PlayerData(seconds, quitWithFly);
-			plugin.getPlayersData().addPlayerData(uuid, playerData);
-		} else {
-			PlayerData playerData = new PlayerData(0, false);
-			plugin.getPlayersData().addPlayerData(uuid, playerData);
 		}
 	}
 }

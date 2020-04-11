@@ -4,11 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.configuration.file.FileConfiguration;
+
+import tk.kaylandfly.KayLandFlyPlugin;
+
 public class PlayersData {
 	
+	private KayLandFlyPlugin plugin;
 	private Map<UUID, PlayerData> playersData;
 	
-	public PlayersData() {
+	public PlayersData(KayLandFlyPlugin plugin) {
+		this.plugin = plugin;
 		playersData = new HashMap<UUID, PlayerData>();
 	}
 	
@@ -38,4 +44,35 @@ public class PlayersData {
 	 * @return PlayerData
 	 */
 	public PlayerData getPlayerData(UUID uuid) { return playersData.get(uuid); }
+
+	/**
+	 * Carga los datos de vuelo de un jugador
+	 * @param uuid
+	 */
+	public void loadPlayerData(UUID uuid) {
+		FileConfiguration players = plugin.getFiles().getPlayers();
+		if (players.contains(uuid.toString())) {
+			int seconds = players.getInt(uuid + ".seconds");
+			boolean quitWithFly = players.getBoolean(uuid + ".quitWithFly");
+			PlayerData playerData = new PlayerData(seconds, quitWithFly);
+			plugin.getPlayersData().addPlayerData(uuid, playerData);
+		} else {
+			PlayerData playerData = new PlayerData(0, false);
+			plugin.getPlayersData().addPlayerData(uuid, playerData);
+		}
+	}
+
+	/**
+	 * Guarda los datos de un jugador
+	 * @param uuid
+	 */
+	public void savePlayerData(UUID uuid) {
+		if (plugin.getPlayersData().containPlayerData(uuid)) {
+			FileConfiguration players = plugin.getFiles().getPlayers();
+			PlayerData playerData = plugin.getPlayersData().getPlayerData(uuid);
+			players.set(uuid + ".seconds", playerData.getSeconds());
+			players.set(uuid + ".quitWithFly", playerData.hasQuitWithFly());
+			plugin.getFiles().savePlayers();
+		}
+	}
 }
