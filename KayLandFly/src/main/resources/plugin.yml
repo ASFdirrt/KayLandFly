@@ -1,0 +1,24 @@
+main: tk.kaylandfly.KayLandFlyPlugin
+name: KayLandFly
+version: 1.0
+commands:
+  kaylandfly:
+    aliases:
+    - klf
+    description: Manager plugin
+    permission: kaylandfly.admin
+  kaylandflyfly:
+    aliases:
+    - klffly
+    - fly
+    description: Enable/Disable fly mode!
+    permission: kaylandfly.use
+permissions:
+  kaylandfly.admin:
+    description: Can use kaylandfly command
+  kaylandfly.use:
+    description: Can use fly command
+  kaylandfly.use.other:
+    description: Can active fly other player
+    
+  
